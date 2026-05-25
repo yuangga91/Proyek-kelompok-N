@@ -7,6 +7,7 @@
 let appState = {
     userProfile: null,
     weeklyMenu: null,
+    orderCart: [],
     reminders: {
         breakfast: { time: "07:00", enabled: true },
         lunch: { time: "12:00", enabled: true },
@@ -81,6 +82,16 @@ function setupEventListeners() {
         recipeSearch.addEventListener('input', handleRecipeSearch);
     }
 
+    const addOrderBtn = document.getElementById('addOrderBtn');
+    if (addOrderBtn) {
+        addOrderBtn.addEventListener('click', handleAddOrder);
+    }
+
+    const openMapsBtn = document.getElementById('openMapsBtn');
+    if (openMapsBtn) {
+        openMapsBtn.addEventListener('click', handleOpenMaps);
+    }
+
     const recipeBudgetFilter = document.getElementById('recipeBudgetFilter');
     if (recipeBudgetFilter) {
         recipeBudgetFilter.addEventListener('change', handleRecipeFilter);
@@ -94,6 +105,8 @@ function setupEventListeners() {
 
     // Load food places on page load
     loadAndDisplayFoodPlaces();
+    populateOrderRestaurantOptions();
+    displayOrderList();
 
     // Reminder save button
     const saveReminderBtn = document.getElementById('saveReminderBtn');
@@ -583,11 +596,121 @@ function displayFoodPlaces(places) {
                 <div class="restaurant-detail-row" style="flex-wrap: wrap; gap: 5px;">
                     ${allergyBadges}
                 </div>
+                <div class="restaurant-actions" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-primary btn-small" onclick="selectRestaurantForOrder(${place.id})">Pesan Dari Sini</button>
+                    <a class="btn btn-secondary btn-small map-link" href="https://www.google.com/maps/search/${encodeURIComponent(place.address)}" target="_blank" rel="noreferrer">Google Maps</a>
+                </div>
             </div>
         `;
 
         foodPlacesContainer.appendChild(restaurantCard);
     });
+}
+
+function populateOrderRestaurantOptions() {
+    const restaurantSelect = document.getElementById('orderRestaurant');
+    if (!restaurantSelect) return;
+
+    restaurantSelect.innerHTML = '<option value="">Pilih restoran...</option>';
+    foodPlacesTembalang.forEach(place => {
+        const option = document.createElement('option');
+        option.value = place.id;
+        option.textContent = `${place.name} — ${place.type}`;
+        restaurantSelect.appendChild(option);
+    });
+}
+
+function selectRestaurantForOrder(placeId) {
+    const restaurantSelect = document.getElementById('orderRestaurant');
+    if (!restaurantSelect) return;
+
+    restaurantSelect.value = placeId;
+    restaurantSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showNotification('Restoran dipilih, silakan lengkapi detail pesanan.', 'info');
+}
+
+function handleAddOrder() {
+    const restaurantId = document.getElementById('orderRestaurant').value;
+    const method = document.getElementById('orderMethod').value;
+    const recipientName = document.getElementById('recipientName').value.trim();
+    const destination = document.getElementById('orderDestination').value.trim();
+    const item = document.getElementById('orderItem').value.trim();
+    const quantity = parseInt(document.getElementById('orderQuantity').value, 10);
+
+    if (!restaurantId || !method || !recipientName || !destination || !item || !quantity) {
+        showNotification('Lengkapi semua detail pesanan terlebih dahulu.', 'warning');
+        return;
+    }
+
+    const restaurant = foodPlacesTembalang.find(place => String(place.id) === String(restaurantId));
+    if (!restaurant) {
+        showNotification('Restoran tidak ditemukan.', 'error');
+        return;
+    }
+
+    const order = {
+        restaurantId,
+        restaurantName: restaurant.name,
+        method,
+        recipientName,
+        destination,
+        item,
+        quantity,
+        time: new Date().toLocaleString('id-ID')
+    };
+
+    appState.orderCart.push(order);
+    saveStateToStorage();
+    displayOrderList();
+    showNotification('✓ Pesanan berhasil ditambahkan.', 'success');
+    document.getElementById('orderItem').value = '';
+    document.getElementById('orderQuantity').value = '1';
+}
+
+function handleOpenMaps() {
+    const destination = document.getElementById('orderDestination').value.trim();
+    if (!destination) {
+        showNotification('Masukkan alamat tujuan terlebih dahulu.', 'warning');
+        return;
+    }
+
+    const url = `https://www.google.com/maps/search/${encodeURIComponent(destination)}`;
+    window.open(url, '_blank');
+}
+
+function displayOrderList() {
+    const orderList = document.getElementById('orderList');
+    if (!orderList) return;
+
+    orderList.innerHTML = '';
+
+    if (!appState.orderCart || appState.orderCart.length === 0) {
+        orderList.innerHTML = '<p class="info-text">Belum ada pesanan. Tambahkan pesanan baru terlebih dahulu.</p>';
+        return;
+    }
+
+    appState.orderCart.forEach((order, index) => {
+        const orderItem = document.createElement('div');
+        orderItem.className = 'order-item';
+        orderItem.innerHTML = `
+            <div><strong>${order.restaurantName}</strong> • ${order.method === 'pickup' ? 'Pickup' : 'Pesan Antar'}</div>
+            <div>Pesanan: ${order.item} x${order.quantity}</div>
+            <div>Tujuan: ${order.destination}</div>
+            <div>Penerima: ${order.recipientName}</div>
+            <div style="font-size: 13px; color: ${order.method === 'pickup' ? '#4a6572' : '#2f6f8f'};">Waktu: ${order.time}</div>
+            <button type="button" onclick="removeOrderItem(${index})">Hapus</button>
+        `;
+
+        orderList.appendChild(orderItem);
+    });
+}
+
+function removeOrderItem(index) {
+    if (index < 0 || index >= appState.orderCart.length) return;
+    appState.orderCart.splice(index, 1);
+    saveStateToStorage();
+    displayOrderList();
+    showNotification('Pesanan berhasil dihapus.', 'info');
 }
 
 function filterFoodPlaces(type) {
@@ -911,6 +1034,9 @@ function initializeApp() {
     if (appState.weeklyMenu) {
         displayWeeklyMenu(appState.weeklyMenu, appState.userProfile.budget);
     }
+
+    // Restore saved orders if exists
+    displayOrderList();
 }
 
 // Handle page visibility to restart reminders when tab becomes visible

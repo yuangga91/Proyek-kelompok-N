@@ -221,6 +221,59 @@
                         <button class="filter-btn" onclick="filterFoodPlaces('hemat')">💰 Paling Hemat</button>
                     </div>
 
+                    <div class="order-section">
+                        <h3>📦 Pesan Makanan</h3>
+                        <p style="margin-bottom: 15px; color: var(--text-soft);">Pilih restoran, pilih metode pickup atau pesan antar, lalu masukkan lokasi tujuan penerima dengan Google Maps.</p>
+                        <form id="orderForm" class="order-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="orderRestaurant">Restoran</label>
+                                    <select id="orderRestaurant" required>
+                                        <option value="">Pilih restoran...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="orderMethod">Metode Pesan</label>
+                                    <select id="orderMethod" required>
+                                        <option value="delivery">Pesan Antar</option>
+                                        <option value="pickup">Pickup</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="recipientName">Nama Penerima</label>
+                                    <input type="text" id="recipientName" placeholder="Nama penerima" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="orderDestination">Tujuan / Alamat</label>
+                                    <input type="text" id="orderDestination" placeholder="Alamat penerima atau nama lokasi" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="orderItem">Pesanan</label>
+                                    <input type="text" id="orderItem" placeholder="Contoh: Nasi Ayam Geprek" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="orderQuantity">Jumlah</label>
+                                    <input type="number" id="orderQuantity" min="1" value="1" required>
+                                </div>
+                            </div>
+                            <div class="order-actions">
+                                <button type="button" class="btn btn-primary btn-small" id="addOrderBtn">Tambah Pesanan</button>
+                                <button type="button" class="btn btn-secondary btn-small" id="openMapsBtn">Buka Google Maps</button>
+                            </div>
+                        </form>
+
+                        <div class="order-summary" id="orderSummary">
+                            <h4>Ringkasan Pesanan Terpisah</h4>
+                            <div id="orderList" class="order-list">
+                                <p class="info-text">Belum ada pesanan. Tambahkan pesanan baru terlebih dahulu.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="foodPlacesContainer" class="restaurant-grid">
                         <!-- Food places will be loaded here -->
                     </div>
