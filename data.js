@@ -692,6 +692,233 @@ const budgetIngredients = [
     { name: "Mie Instan 1 dus", cost: 15000, quantity: "20 pcs", type: "staple" }
 ];
 
+// ======== DATA KHUSUS MAHASISWA TEMBALANG UNDIP ========
+
+// Daftar Menu Makanan Warung Tembalang
+const foodMenusTembalang = [
+    { id: 1, name: "Nasi Ayam Geprek", type: "Junk", price: 18000, calories: 650, nutrition: "Protein tinggi, lemak tinggi", allergens: ["Gluten", "telur"], emoji: "🍗" },
+    { id: 2, name: "Nasi Lele + Sayur", type: "Sehat", price: 15000, calories: 480, nutrition: "Protein, serat", allergens: ["Ikan"], emoji: "🐟" },
+    { id: 3, name: "Capcay Warteg", type: "Sehat", price: 12000, calories: 250, nutrition: "Serat tinggi", allergens: ["Kerang"], emoji: "🥬" },
+    { id: 4, name: "Indomie Telur Kornet", type: "Junk", price: 16000, calories: 700, nutrition: "Lemak tinggi", allergens: ["Gluten", "telur"], emoji: "🍜" },
+    { id: 5, name: "Nasi Pecel Tempe", type: "Sehat", price: 13000, calories: 420, nutrition: "Serat, protein nabati", allergens: ["Kacang"], emoji: "🟫" },
+    { id: 6, name: "Ayam Bakar + Lalapan", type: "Sehat", price: 20000, calories: 500, nutrition: "Protein tinggi", allergens: ["Kedelai"], emoji: "🍗" },
+    { id: 7, name: "Rice Bowl Sambal Matah", type: "Junk", price: 22000, calories: 620, nutrition: "Protein", allergens: ["Telur"], emoji: "🍚" },
+    { id: 8, name: "Sop Ikan", type: "Sehat", price: 25000, calories: 350, nutrition: "Protein rendah lemak", allergens: ["Ikan"], emoji: "🍲" },
+    { id: 9, name: "Burjo Nasi Telur", type: "Junk", price: 10000, calories: 550, nutrition: "Karbohidrat tinggi", allergens: ["Telur"], emoji: "🍚" },
+    { id: 10, name: "Oatmeal Pisang Susu", type: "Sehat", price: 15000, calories: 300, nutrition: "Serat tinggi", allergens: ["Susu"], emoji: "🍌" }
+];
+
+// Daftar Tempat Makan di Area Tembalang
+const foodPlacesTembalang = [
+    {
+        id: 1,
+        name: "Warteg Kharisma Bahari Cabang Tembalang",
+        emoji: "🍜",
+        type: "Warung",
+        address: "Jl. KH. Sirojudin Kel No.1G, Tembalang",
+        phone: "+6288226828803",
+        avgPrice: 15000,
+        hours: "24 jam",
+        recommendations: ["Nasi rames", "Lele + sayur"],
+        nutrients: ["Protein", "Sayur"],
+        allergies: ["Ikan", "Telur"],
+        rating: 4.6
+    },
+    {
+        id: 2,
+        name: "Warteg Ibu Dewi Undip Tembalang",
+        emoji: "🍚",
+        type: "Sekitar Kampus",
+        address: "Jl. Prof. Soedarto No.12i, Sumurboto, Banyumanik",
+        phone: "+628xx-xxxx-xxxx",
+        avgPrice: 14000,
+        hours: "Buka setiap hari",
+        recommendations: ["Nasi rames telur balado"],
+        nutrients: ["Karbohidrat", "Protein"],
+        allergies: ["Telur"],
+        rating: 4.5
+    },
+    {
+        id: 3,
+        name: "Sowak (Sop Iwak)",
+        emoji: "🍲",
+        type: "Sekitar Kampus",
+        address: "Jl. Banjarsari Selatan No.18, Pedalangan, Banyumanik",
+        phone: "+6281225753337",
+        avgPrice: 32500,
+        hours: "Dine in & Online",
+        recommendations: ["Sop ikan"],
+        nutrients: ["Protein rendah lemak"],
+        allergies: ["Ikan"],
+        rating: 4.7
+    },
+    {
+        id: 4,
+        name: "Burjo Motekar",
+        emoji: "🍜",
+        type: "Warung Mahasiswa",
+        address: "Jl. Galang Sewu Raya No.109, RT.1/RW.07, Tembalang",
+        phone: "+6282136631123",
+        avgPrice: 11500,
+        hours: "24 jam",
+        recommendations: ["Indomie telur"],
+        nutrients: ["Karbohidrat tinggi"],
+        allergies: ["Gluten", "Telur"],
+        rating: 4.4
+    },
+    {
+        id: 5,
+        name: 'Waroeng Spesial Sambal "SS" Tembalang',
+        emoji: "🌶️",
+        type: "Online / Keluarga",
+        address: "Jl. Tirto Agung No.32, Pedalangan, Kec. Banyumanik",
+        phone: "+6281391312205",
+        avgPrice: 37500,
+        hours: "Dine in & Delivery",
+        recommendations: ["Ayam bakar sambal"],
+        nutrients: ["Protein"],
+        allergies: ["Kedelai", "Telur"],
+        rating: 4.8
+    },
+    {
+        id: 6,
+        name: "Warteg Citra Muncul",
+        emoji: "🍚",
+        type: "Warung Hemat",
+        address: "Jl. Banjarsari No.27A, Tembalang, Kec. Tembalang",
+        phone: "+6287700140504",
+        avgPrice: 15000,
+        hours: "Dekat kos mahasiswa",
+        recommendations: ["Nasi bandeng + sayur"],
+        nutrients: ["Protein", "Serat"],
+        allergies: ["Ikan"],
+        rating: 4.5
+    }
+];
+
+// Resep-Resep Baru dari Tembalang
+const newRecipes = [
+    {
+        id: 101,
+        name: "Nasi Ayam Lada Hitam",
+        emoji: "🍗",
+        category: "main",
+        cost: 18000,
+        calories: 500,
+        protein: 30,
+        carbs: 50,
+        fat: 15,
+        fiber: 2,
+        ingredients: ["Ayam 150g", "Bawang 3 siung", "Lada hitam 1 sdt", "Nasi putih 1 piring", "Minyak goreng", "Garam"],
+        steps: ["Tumis ayam lalu sajikan"],
+        type: "High protein",
+        allergens: [],
+        region: "Tembalang"
+    },
+    {
+        id: 102,
+        name: "Oatmeal Pisang",
+        emoji: "🍌",
+        category: "breakfast",
+        cost: 12000,
+        calories: 300,
+        protein: 10,
+        carbs: 45,
+        fat: 5,
+        fiber: 5,
+        ingredients: ["Oat 50g", "Susu 200ml", "Pisang 1 buah", "Madu 1 sdt"],
+        steps: ["Rebus oat lalu tambah pisang"],
+        type: "Healthy breakfast",
+        allergens: ["Susu"],
+        region: "Tembalang"
+    },
+    {
+        id: 103,
+        name: "Tempe Tumis Sayur",
+        emoji: "🟫",
+        category: "main",
+        cost: 10000,
+        calories: 280,
+        protein: 12,
+        carbs: 20,
+        fat: 10,
+        fiber: 4,
+        ingredients: ["Tempe 100g", "Wortel 1", "Buncis 50g", "Bawang 2 siung"],
+        steps: ["Tumis semua bahan"],
+        type: "Vegetarian",
+        allergens: [],
+        region: "Tembalang"
+    },
+    {
+        id: 104,
+        name: "Sop Ikan Sederhana",
+        emoji: "🍲",
+        category: "main",
+        cost: 20000,
+        calories: 350,
+        protein: 28,
+        carbs: 15,
+        fat: 12,
+        fiber: 2,
+        ingredients: ["Ikan 200g", "Tomat 1", "Daun bawang 1 batang", "Air 500ml"],
+        steps: ["Rebus hingga matang"],
+        type: "Low fat",
+        allergens: ["Ikan"],
+        region: "Tembalang"
+    },
+    {
+        id: 105,
+        name: "Indomie Telur Sayur",
+        emoji: "🍜",
+        category: "main",
+        cost: 11000,
+        calories: 550,
+        protein: 15,
+        carbs: 65,
+        fat: 18,
+        fiber: 2,
+        ingredients: ["Mie 1 bungkus", "Telur 1", "Sawi 100g", "Bawang 2 siung"],
+        steps: ["Rebus dan campur sayur"],
+        type: "Comfort food",
+        allergens: ["Gluten", "Telur"],
+        region: "Tembalang"
+    },
+    {
+        id: 106,
+        name: "Rice Bowl Tuna Mayo",
+        emoji: "🍚",
+        category: "main",
+        cost: 22000,
+        calories: 600,
+        protein: 25,
+        carbs: 55,
+        fat: 20,
+        fiber: 2,
+        ingredients: ["Nasi 1 piring", "Tuna 100g", "Mayo 2 sdm", "Timun"],
+        steps: ["Campur tuna dan saus"],
+        type: "Fast meal",
+        allergens: ["Telur"],
+        region: "Tembalang"
+    },
+    {
+        id: 107,
+        name: "Salad Buah Yogurt",
+        emoji: "🥗",
+        category: "dessert",
+        cost: 18000,
+        calories: 250,
+        protein: 8,
+        carbs: 35,
+        fat: 5,
+        fiber: 4,
+        ingredients: ["Apel 1", "Melon 200g", "Yogurt 150ml"],
+        steps: ["Potong dan campur"],
+        type: "Dessert sehat",
+        allergens: ["Susu"],
+        region: "Tembalang"
+    }
+];
+
 // Function to calculate BMR (Basal Metabolic Rate)
 function calculateBMR(gender, age, height, weight) {
     let bmr;

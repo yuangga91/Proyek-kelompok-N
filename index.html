@@ -18,6 +18,8 @@
                 <nav class="nav-menu">
                     <button class="nav-btn active" data-tab="home">Beranda</button>
                     <button class="nav-btn" data-tab="profile">Profil Anda</button>
+                    <button class="nav-btn" data-tab="food-menu">🍛 Menu Makanan</button>
+                    <button class="nav-btn" data-tab="food-places">🍜 Tempat Makan</button>
                     <button class="nav-btn" data-tab="menu">Menu Mingguan</button>
                     <button class="nav-btn" data-tab="recipes">Resep</button>
                     <button class="nav-btn" data-tab="reminder">Pengingat Makan</button>
@@ -185,6 +187,42 @@
                                 <span class="info-value" id="budgetPerDay">-</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Food Menu Tembalang Tab -->
+            <section id="food-menu-tab" class="tab-content">
+                <div class="card">
+                    <h2>🍛 Daftar Menu Makanan Tembalang</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Menu makanan populer dari warung-warung sekitar Tembalang untuk mahasiswa UNDIP</p>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" onclick="filterFoodMenu('all')">Semua Menu</button>
+                        <button class="filter-btn" onclick="filterFoodMenu('sehat')">🥗 Sehat</button>
+                        <button class="filter-btn" onclick="filterFoodMenu('junk')">🍕 Junk Food</button>
+                    </div>
+
+                    <div id="foodMenuContainer" class="food-list-container">
+                        <!-- Food menus will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Food Places Tembalang Tab -->
+            <section id="food-places-tab" class="tab-content">
+                <div class="card">
+                    <h2>🍜 Tempat Makan Sekitar Tembalang</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Rekomendasi tempat makan dekat kampus UNDIP Tembalang yang terjangkau untuk mahasiswa</p>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" onclick="filterFoodPlaces('all')">Semua Tempat</button>
+                        <button class="filter-btn" onclick="filterFoodPlaces('sehat')">💚 Pilihan Sehat</button>
+                        <button class="filter-btn" onclick="filterFoodPlaces('hemat')">💰 Paling Hemat</button>
+                    </div>
+
+                    <div id="foodPlacesContainer" class="restaurant-grid">
+                        <!-- Food places will be loaded here -->
                     </div>
                 </div>
             </section>

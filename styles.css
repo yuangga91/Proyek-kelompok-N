@@ -9,22 +9,33 @@
     box-sizing: border-box;
 }
 
-/* Color Scheme */
+/* Color Scheme - Colorful and Vibrant */
 :root {
-    --primary-green: #2ecc71;
+    --primary-blue: #3498db;
+    --primary-purple: #9b59b6;
+    --primary-pink: #e91e63;
+    --primary-red: #e74c3c;
     --primary-orange: #f39c12;
-    --secondary-green: #27ae60;
-    --secondary-orange: #e67e22;
-    --dark-green: #16a085;
-    --light-green: #d5f4e6;
-    --light-orange: #fdebd0;
+    --primary-yellow: #f1c40f;
+    --primary-teal: #1abc9c;
+    --primary-green: #2ecc71;
+    
+    --secondary-blue: #2980b9;
+    --secondary-purple: #8e44ad;
+    --secondary-pink: #c2185b;
+    --secondary-red: #c0392b;
+    
+    --accent-lime: #bdc3c7;
+    --accent-indigo: #4a148c;
+    --accent-magenta: #ff1493;
+    
     --dark-text: #2c3e50;
     --light-text: #ecf0f1;
     --border-color: #bdc3c7;
-    --bg-light: #f8f9fa;
+    --bg-light: #f5f7fa;
     --bg-white: #ffffff;
     --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -36,13 +47,21 @@ body {
 
 /* ========== HEADER ========== */
 .header {
-    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-orange) 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     color: white;
     padding: 20px 0;
     box-shadow: var(--shadow);
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .header-content {
@@ -70,26 +89,31 @@ body {
 }
 
 .nav-btn {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     color: white;
     border: 2px solid transparent;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 14px;
     transition: all 0.3s ease;
     font-weight: 500;
+    backdrop-filter: blur(10px);
 }
 
 .nav-btn:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .nav-btn.active {
     background: white;
-    color: var(--primary-green);
+    color: #667eea;
     border-color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* ========== CONTAINER ========== */
@@ -140,15 +164,21 @@ body {
 }
 
 .card h2 {
-    color: var(--primary-green);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 20px;
     font-size: 24px;
-    border-bottom: 3px solid var(--primary-orange);
+    border-bottom: 3px solid var(--primary-teal);
     padding-bottom: 10px;
 }
 
 .card h3 {
-    color: var(--dark-green);
+    background: linear-gradient(90deg, var(--primary-purple) 0%, var(--primary-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-top: 20px;
     margin-bottom: 15px;
     font-size: 18px;
@@ -161,7 +191,10 @@ body {
 
 .welcome-section h2 {
     font-size: 36px;
-    color: var(--primary-green);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 50%, var(--primary-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 15px;
 }
 
@@ -179,15 +212,55 @@ body {
 }
 
 .feature-card {
-    background: linear-gradient(135deg, var(--light-green) 0%, var(--light-orange) 100%);
-    border-radius: 10px;
+    background: linear-gradient(135deg, #fff5e1 0%, #fce4ec 100%);
+    border-radius: 15px;
     padding: 30px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid var(--primary-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200px;
+    height: 200px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(20px); }
+}
+
+.feature-card:nth-child(1) {
+    border-left-color: var(--primary-blue);
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+}
+
+.feature-card:nth-child(2) {
+    border-left-color: var(--primary-purple);
+    background: linear-gradient(135deg, #f3e5f5 0%, #fce4ec 100%);
+}
+
+.feature-card:nth-child(3) {
+    border-left-color: var(--primary-teal);
+    background: linear-gradient(135deg, #e0f2f1 0%, #fff9c4 100%);
+}
+
+.feature-card:nth-child(4) {
+    border-left-color: var(--primary-pink);
+    background: linear-gradient(135deg, #fce4ec 0%, #fff3e0 100%);
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.05);
     box-shadow: var(--shadow-hover);
 }
 
@@ -197,13 +270,17 @@ body {
 }
 
 .feature-card h3 {
-    color: var(--dark-green);
+    color: var(--dark-text);
     margin: 0 0 10px 0;
+    position: relative;
+    z-index: 1;
 }
 
 .feature-card p {
     color: var(--dark-text);
     font-size: 14px;
+    position: relative;
+    z-index: 1;
 }
 
 /* ========== FORMS ========== */
@@ -275,33 +352,55 @@ body {
 .btn {
     padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     color: white;
+    z-index: 1;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-red) 100%);
     color: white;
+    z-index: 1;
 }
 
 .btn-secondary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
 }
 
 .btn-large {
@@ -311,10 +410,10 @@ body {
 
 /* ========== INFO BOX ========== */
 .info-box {
-    background: linear-gradient(135deg, var(--light-green) 0%, var(--light-orange) 100%);
-    border-left: 5px solid var(--primary-green);
+    background: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 50%, #f3e5f5 100%);
+    border-left: 5px solid var(--primary-blue);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 20px 0;
 }
 
@@ -374,24 +473,65 @@ body {
 }
 
 .menu-day {
-    background: linear-gradient(135deg, var(--light-green) 0%, var(--light-orange) 100%);
-    border-radius: 10px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+    border-radius: 15px;
     padding: 20px;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease;
+    border-left: 5px solid var(--primary-blue);
+}
+
+.menu-day:nth-child(1) {
+    background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
+    border-left-color: var(--primary-blue);
+}
+
+.menu-day:nth-child(2) {
+    background: linear-gradient(135deg, #f3e5f5 0%, #fce4ec 100%);
+    border-left-color: var(--primary-purple);
+}
+
+.menu-day:nth-child(3) {
+    background: linear-gradient(135deg, #e0f2f1 0%, #fff9c4 100%);
+    border-left-color: var(--primary-teal);
+}
+
+.menu-day:nth-child(4) {
+    background: linear-gradient(135deg, #fce4ec 0%, #fff3e0 100%);
+    border-left-color: var(--primary-pink);
+}
+
+.menu-day:nth-child(5) {
+    background: linear-gradient(135deg, #ede7f6 0%, #f1f8e9 100%);
+    border-left-color: #9c27b0;
+}
+
+.menu-day:nth-child(6) {
+    background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
+    border-left-color: var(--primary-orange);
+}
+
+.menu-day:nth-child(7) {
+    background: linear-gradient(135deg, #f8bbd0 0%, #ffe082 100%);
+    border-left-color: #ff5252;
 }
 
 .menu-day:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
 }
 
 .menu-day-header {
     font-weight: 700;
-    color: var(--dark-green);
+    color: var(--dark-text);
     margin-bottom: 15px;
     font-size: 18px;
-    border-bottom: 2px solid var(--primary-green);
+    border-bottom: 2px solid var(--primary-blue);
     padding-bottom: 10px;
+    background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .menu-meal {
@@ -494,26 +634,61 @@ body {
 
 .recipe-card {
     background: var(--bg-white);
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    border-top: 5px solid var(--primary-blue);
 }
 
+.recipe-card:nth-child(1) { border-top-color: var(--primary-blue); }
+.recipe-card:nth-child(2) { border-top-color: var(--primary-purple); }
+.recipe-card:nth-child(3) { border-top-color: var(--primary-teal); }
+.recipe-card:nth-child(4) { border-top-color: var(--primary-pink); }
+.recipe-card:nth-child(5) { border-top-color: var(--primary-orange); }
+.recipe-card:nth-child(6) { border-top-color: var(--primary-red); }
+.recipe-card:nth-child(n+7) { border-top-color: var(--primary-yellow); }
+
 .recipe-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-hover);
 }
 
 .recipe-image {
     width: 100%;
     height: 200px;
-    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-orange) 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-card:nth-child(2) .recipe-image {
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 100%);
+}
+
+.recipe-card:nth-child(3) .recipe-image {
+    background: linear-gradient(135deg, var(--primary-teal) 0%, #4facfe 100%);
+}
+
+.recipe-card:nth-child(4) .recipe-image {
+    background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-red) 100%);
+}
+
+.recipe-card:nth-child(5) .recipe-image {
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-yellow) 100%);
+}
+
+.recipe-card:nth-child(6) .recipe-image {
+    background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-orange) 100%);
+}
+
+.recipe-card:nth-child(n+7) .recipe-image {
+    background: linear-gradient(135deg, var(--primary-yellow) 0%, #4facfe 100%);
 }
 
 .recipe-content {
@@ -522,9 +697,13 @@ body {
 
 .recipe-title {
     font-weight: 600;
-    color: var(--dark-green);
+    color: var(--dark-text);
     margin-bottom: 8px;
     font-size: 16px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .recipe-info {
@@ -541,8 +720,163 @@ body {
 }
 
 .recipe-calorie {
-    color: var(--primary-green);
+    color: var(--primary-blue);
     font-weight: 600;
+}
+
+/* ========== FOOD LIST & RESTAURANT ========== */
+.food-list-container,
+.restaurant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.food-card,
+.restaurant-card {
+    background: var(--bg-white);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-top: 5px solid var(--primary-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+.food-card:nth-child(even) { border-top-color: var(--primary-purple); }
+.food-card:nth-child(3n) { border-top-color: var(--primary-teal); }
+.food-card:nth-child(4n) { border-top-color: var(--primary-pink); }
+
+.restaurant-card:nth-child(odd) { border-top-color: var(--primary-orange); }
+.restaurant-card:nth-child(even) { border-top-color: var(--primary-red); }
+.restaurant-card:nth-child(3n) { border-top-color: var(--primary-teal); }
+
+.food-card:hover,
+.restaurant-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.food-header,
+.restaurant-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.food-emoji,
+.restaurant-emoji {
+    font-size: 40px;
+}
+
+.food-name,
+.restaurant-name {
+    font-weight: 700;
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.food-category {
+    display: inline-block;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    color: var(--primary-blue);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.restaurant-type {
+    display: inline-block;
+    background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
+    color: var(--primary-orange);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.food-details,
+.restaurant-details {
+    font-size: 14px;
+    color: var(--dark-text);
+}
+
+.food-detail-row,
+.restaurant-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.food-detail-row:last-child,
+.restaurant-detail-row:last-child {
+    border-bottom: none;
+}
+
+.food-label,
+.restaurant-label {
+    font-weight: 600;
+    color: var(--dark-text);
+}
+
+.food-value,
+.restaurant-value {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.allergen-badge,
+.nutrient-badge {
+    display: inline-block;
+    background: #ffcdd2;
+    color: #c62828;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    margin: 4px 4px 4px 0;
+    font-weight: 600;
+}
+
+.nutrient-badge {
+    background: #c8e6c9;
+    color: #1b5e20;
+}
+
+.filter-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--border-color);
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+    color: white;
+    border-color: transparent;
 }
 
 /* ========== MODAL ========== */

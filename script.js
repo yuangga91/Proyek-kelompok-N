@@ -89,6 +89,12 @@ function setupEventListeners() {
     // Load recipes on page load
     loadAndDisplayRecipes();
 
+    // Load food menus on page load
+    loadAndDisplayFoodMenu();
+
+    // Load food places on page load
+    loadAndDisplayFoodPlaces();
+
     // Reminder save button
     const saveReminderBtn = document.getElementById('saveReminderBtn');
     if (saveReminderBtn) {
@@ -427,6 +433,184 @@ function showRecipeDetail(recipe) {
 
 function closeRecipeModal() {
     document.getElementById('recipeModal').style.display = 'none';
+}
+
+// ========== FOOD MENU HANDLING ==========
+let currentFoodMenuFilter = 'all';
+
+function loadAndDisplayFoodMenu() {
+    displayFoodMenus(foodMenusTembalang);
+}
+
+function displayFoodMenus(foods) {
+    const foodMenuContainer = document.getElementById('foodMenuContainer');
+    if (!foodMenuContainer) return;
+
+    foodMenuContainer.innerHTML = '';
+
+    if (foods.length === 0) {
+        foodMenuContainer.innerHTML = '<p class="info-text">Tidak ada menu yang sesuai</p>';
+        return;
+    }
+
+    foods.forEach(food => {
+        const foodCard = document.createElement('div');
+        foodCard.className = 'food-card';
+
+        const allergenBadges = food.allergens.map(a => 
+            `<span class="allergen-badge">⚠️ ${a}</span>`
+        ).join('');
+
+        const typeColor = food.type === 'Sehat' ? '#4caf50' : '#ff6b6b';
+        
+        foodCard.innerHTML = `
+            <div class="food-header">
+                <div class="food-emoji">${food.emoji}</div>
+                <div>
+                    <div class="food-name">${food.name}</div>
+                    <span style="background: ${typeColor}; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: 600;">
+                        ${food.type}
+                    </span>
+                </div>
+            </div>
+            <div class="food-details">
+                <div class="food-detail-row">
+                    <span class="food-label">Harga:</span>
+                    <span class="food-value">Rp ${food.price.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="food-detail-row">
+                    <span class="food-label">Kalori:</span>
+                    <span class="food-value">${food.calories} kcal</span>
+                </div>
+                <div class="food-detail-row">
+                    <span class="food-label">Nutrisi:</span>
+                    <span style="color: #666; font-size: 13px;">${food.nutrition}</span>
+                </div>
+                <div class="food-detail-row" style="flex-wrap: wrap; gap: 5px;">
+                    ${allergenBadges}
+                </div>
+            </div>
+        `;
+
+        foodMenuContainer.appendChild(foodCard);
+    });
+}
+
+function filterFoodMenu(type) {
+    currentFoodMenuFilter = type;
+    
+    // Update button styles
+    document.querySelectorAll('#food-menu-tab .filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    let filtered = foodMenusTembalang;
+    if (type === 'sehat') {
+        filtered = foodMenusTembalang.filter(food => food.type === 'Sehat');
+    } else if (type === 'junk') {
+        filtered = foodMenusTembalang.filter(food => food.type === 'Junk');
+    }
+
+    displayFoodMenus(filtered);
+}
+
+// ========== FOOD PLACES HANDLING ==========
+let currentFoodPlacesFilter = 'all';
+
+function loadAndDisplayFoodPlaces() {
+    displayFoodPlaces(foodPlacesTembalang);
+}
+
+function displayFoodPlaces(places) {
+    const foodPlacesContainer = document.getElementById('foodPlacesContainer');
+    if (!foodPlacesContainer) return;
+
+    foodPlacesContainer.innerHTML = '';
+
+    if (places.length === 0) {
+        foodPlacesContainer.innerHTML = '<p class="info-text">Tidak ada tempat makan yang sesuai</p>';
+        return;
+    }
+
+    places.forEach(place => {
+        const restaurantCard = document.createElement('div');
+        restaurantCard.className = 'restaurant-card';
+
+        const allergyBadges = place.allergies.map(a => 
+            `<span class="allergen-badge">⚠️ ${a}</span>`
+        ).join('');
+
+        const nutrientBadges = place.nutrients.map(n => 
+            `<span class="nutrient-badge">💚 ${n}</span>`
+        ).join('');
+
+        const rating = '⭐'.repeat(Math.floor(place.rating));
+
+        restaurantCard.innerHTML = `
+            <div class="restaurant-header">
+                <div class="restaurant-emoji">${place.emoji}</div>
+                <div style="flex: 1;">
+                    <div class="restaurant-name">${place.name}</div>
+                    <span class="restaurant-type">${place.type}</span>
+                    <div style="font-size: 12px; color: #666;">${rating} ${place.rating}/5</div>
+                </div>
+            </div>
+            <div class="restaurant-details">
+                <div class="restaurant-detail-row">
+                    <span class="restaurant-label">📍 Lokasi:</span>
+                    <span style="color: #666; font-size: 13px;">${place.address}</span>
+                </div>
+                <div class="restaurant-detail-row">
+                    <span class="restaurant-label">💰 Harga Rata:</span>
+                    <span class="restaurant-value">Rp ${place.avgPrice.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="restaurant-detail-row">
+                    <span class="restaurant-label">⏰ Jam:</span>
+                    <span style="color: #666; font-size: 13px;">${place.hours}</span>
+                </div>
+                <div class="restaurant-detail-row">
+                    <span class="restaurant-label">📞 Telepon:</span>
+                    <span style="color: #3498db; font-size: 13px; font-weight: 600;">${place.phone}</span>
+                </div>
+                <div class="restaurant-detail-row">
+                    <span class="restaurant-label">👌 Rekomendasi:</span>
+                    <span style="color: #666; font-size: 13px;">${place.recommendations.join(', ')}</span>
+                </div>
+                <div class="restaurant-detail-row" style="flex-wrap: wrap; gap: 5px;">
+                    ${nutrientBadges}
+                </div>
+                <div class="restaurant-detail-row" style="flex-wrap: wrap; gap: 5px;">
+                    ${allergyBadges}
+                </div>
+            </div>
+        `;
+
+        foodPlacesContainer.appendChild(restaurantCard);
+    });
+}
+
+function filterFoodPlaces(type) {
+    currentFoodPlacesFilter = type;
+    
+    // Update button styles
+    document.querySelectorAll('#food-places-tab .filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    let filtered = foodPlacesTembalang;
+    if (type === 'sehat') {
+        // Filter places dengan nutrient positif
+        filtered = foodPlacesTembalang.filter(place => 
+            place.nutrients.includes('Protein') || place.nutrients.includes('Serat')
+        );
+    } else if (type === 'hemat') {
+        // Filter places dengan harga rata-rata terendah
+        filtered = foodPlacesTembalang.sort((a, b) => a.avgPrice - b.avgPrice);
+    }
+
+    displayFoodPlaces(filtered);
 }
 
 // ========== REMINDER HANDLING ==========
