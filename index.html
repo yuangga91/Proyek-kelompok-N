@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENU MAKAN HEMAT - Solusi Makan Hemat & Sehat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🍜 MENU MAKAN HEMAT</h1>
+                    <p>Makan Hemat, Hidup Sehat</p>
+                </div>
+                <nav class="nav-menu">
+                    <button class="nav-btn active" data-tab="home">Beranda</button>
+                    <button class="nav-btn" data-tab="profile">Profil Anda</button>
+                    <button class="nav-btn" data-tab="menu">Menu Mingguan</button>
+                    <button class="nav-btn" data-tab="recipes">Resep</button>
+                    <button class="nav-btn" data-tab="reminder">Pengingat Makan</button>
+                    <button class="nav-btn" data-tab="about">Tentang</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <div class="container">
+            <!-- Home Tab -->
+            <section id="home-tab" class="tab-content active">
+                <div class="welcome-section">
+                    <h2>Selamat Datang di MENU MAKAN HEMAT</h2>
+                    <p>Aplikasi web ini membantu Anda mengatur pola makan hemat, sehat, dan bergizi dengan budget terbatas.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Kalkulator Kalori</h3>
+                            <p>Hitung kebutuhan kalori harian Anda</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🍽️</div>
+                            <h3>Menu Mingguan</h3>
+                            <p>Dapatkan rekomendasi menu hemat</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">👨‍🍳</div>
+                            <h3>Resep Sederhana</h3>
+                            <p>Resep murah untuk dimasak sendiri</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔔</div>
+                            <h3>Pengingat Makan</h3>
+                            <p>Jangan lupa makan tepat waktu</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large" onclick="switchTab('profile')">Mulai Sekarang</button>
+                </div>
+            </section>
+
+            <!-- Profile Tab -->
+            <section id="profile-tab" class="tab-content">
+                <div class="card">
+                    <h2>📋 Data Pribadi Anda</h2>
+                    <form id="profileForm" class="form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gender">Jenis Kelamin:</label>
+                                <select id="gender" required>
+                                    <option value="">-- Pilih --</option>
+                                    <option value="male">Laki-laki</option>
+                                    <option value="female">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Usia (tahun):</label>
+                                <input type="number" id="age" min="15" max="80" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="height">Tinggi Badan (cm):</label>
+                                <input type="number" id="height" min="100" max="220" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Berat Badan (kg):</label>
+                                <input type="number" id="weight" min="30" max="200" step="0.5" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="budget">Budget Makan Per Minggu (Rp):</label>
+                            <input type="number" id="budget" min="50000" step="10000" required placeholder="Contoh: 350000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jenis Pola Makan:</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="dietType" value="healthy" required>
+                                    <span>🥗 Makanan Hemat Sehat</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="dietType" value="unhealthy">
+                                    <span>🍕 Makanan Hemat Tidak Sehat (Fast Food)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Preferensi Nutrisi:</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="nutrition" value="highFiber">
+                                    <span>🥕 Tinggi Serat</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="nutrition" value="highProtein">
+                                    <span>🍗 Tinggi Protein</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="nutrition" value="highFat">
+                                    <span>🥑 Tinggi Lemak</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="nutrition" value="balanced">
+                                    <span>⚖️ Seimbang</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Alergi Makanan (Jika Ada):</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="allergies" value="seafood">
+                                    <span>🦐 Seafood</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="allergies" value="egg">
+                                    <span>🥚 Telur</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="allergies" value="milk">
+                                    <span>🥛 Susu</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="allergies" value="peanut">
+                                    <span>🥜 Kacang</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="allergies" value="gluten">
+                                    <span>🌾 Gluten</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">💾 Simpan Data</button>
+                    </form>
+
+                    <!-- Calorie Result -->
+                    <div id="calorieResult" class="info-box" style="display: none;">
+                        <h3>📊 Hasil Perhitungan Kebutuhan Kalori Harian</h3>
+                        <div class="calorie-info">
+                            <div class="info-item">
+                                <span class="info-label">BMR (Basal Metabolic Rate):</span>
+                                <span class="info-value" id="bmrValue">-</span> kcal/hari
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Total Kebutuhan Kalori:</span>
+                                <span class="info-value" id="calorieValue">-</span> kcal/hari
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Rekomendasi Makan:</span>
+                                <span class="info-value" id="mealRecommendation">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Budget Per Hari:</span>
+                                <span class="info-value" id="budgetPerDay">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Mingguan Tab -->
+            <section id="menu-tab" class="tab-content">
+                <div class="card">
+                    <h2>🍽️ Rekomendasi Menu Mingguan</h2>
+                    
+                    <div class="menu-controls">
+                        <button class="btn btn-primary" id="generateMenuBtn">Generate Menu Mingguan</button>
+                        <button class="btn btn-secondary" id="savePDFBtn">📄 Simpan sebagai PDF</button>
+                    </div>
+
+                    <div id="menuContainer" class="menu-container">
+                        <p class="info-text">Lengkapi data profil Anda terlebih dahulu, kemudian klik "Generate Menu Mingguan"</p>
+                    </div>
+                </div>
+
+                <!-- Budget Summary -->
+                <div class="card">
+                    <h2>💰 Ringkasan Budget</h2>
+                    <div id="budgetSummary" class="budget-summary">
+                        <p class="info-text">Menu belum dihasilkan</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recipes Tab -->
+            <section id="recipes-tab" class="tab-content">
+                <div class="card">
+                    <h2>👨‍🍳 Rekomendasi Resep</h2>
+                    
+                    <div class="recipe-filters">
+                        <input type="text" id="recipeSearch" placeholder="Cari resep..." class="search-input">
+                        <select id="recipeBudgetFilter" class="filter-select">
+                            <option value="">Semua Harga</option>
+                            <option value="cheap">Sangat Murah (&lt; Rp 20.000)</option>
+                            <option value="medium">Murah (Rp 20.000 - Rp 50.000)</option>
+                            <option value="expensive">Terjangkau (&gt; Rp 50.000)</option>
+                        </select>
+                    </div>
+
+                    <div id="recipeContainer" class="recipe-grid">
+                        <!-- Recipes will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Recipe Detail Modal -->
+                <div id="recipeModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <div id="recipeDetail"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reminder Tab -->
+            <section id="reminder-tab" class="tab-content">
+                <div class="card">
+                    <h2>🔔 Pengingat Waktu Makan</h2>
+                    
+                    <div class="reminder-settings">
+                        <div class="reminder-item">
+                            <h3>🌅 Sarapan</h3>
+                            <div class="time-input">
+                                <label for="breakfastTime">Jam:</label>
+                                <input type="time" id="breakfastTime" value="07:00">
+                            </div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="breakfastReminder" checked>
+                                <span>Aktifkan pengingat</span>
+                            </label>
+                        </div>
+
+                        <div class="reminder-item">
+                            <h3>☀️ Makan Siang</h3>
+                            <div class="time-input">
+                                <label for="lunchTime">Jam:</label>
+                                <input type="time" id="lunchTime" value="12:00">
+                            </div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="lunchReminder" checked>
+                                <span>Aktifkan pengingat</span>
+                            </label>
+                        </div>
+
+                        <div class="reminder-item">
+                            <h3>🌙 Makan Malam</h3>
+                            <div class="time-input">
+                                <label for="dinnerTime">Jam:</label>
+                                <input type="time" id="dinnerTime" value="18:00">
+                            </div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="dinnerReminder" checked>
+                                <span>Aktifkan pengingat</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="saveReminderBtn">💾 Simpan Pengingat</button>
+
+                    <div id="reminderStatus" class="info-box" style="display: none; margin-top: 20px;">
+                        <h3>Status Pengingat</h3>
+                        <p id="reminderStatusText"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Tab -->
+            <section id="about-tab" class="tab-content">
+                <div class="card">
+                    <h2>ℹ️ Tentang Aplikasi</h2>
+                    
+                    <div class="about-content">
+                        <h3>MENU MAKAN HEMAT</h3>
+                        <p>Solusi Pengelolaan Makanan Hemat untuk Anak Kos Mahasiswa Undip Semarang</p>
+                        
+                        <h4>Tujuan Aplikasi</h4>
+                        <ul>
+                            <li>Membantu mahasiswa mengatur pengeluaran makan</li>
+                            <li>Menjaga kesehatan dengan menu bergizi</li>
+                            <li>Memilih makanan sesuai kebutuhan gizi</li>
+                            <li>Tetap dapat makan layak dengan budget terbatas</li>
+                        </ul>
+
+                        <h4>Fitur Utama</h4>
+                        <ul>
+                            <li>Kalkulator kebutuhan kalori harian</li>
+                            <li>Rekomendasi menu mingguan sesuai budget</li>
+                            <li>Filter alergi dan preferensi nutrisi</li>
+                            <li>Database resep sederhana dan murah</li>
+                            <li>Pengingat waktu makan</li>
+                        </ul>
+
+                        <h4>Teknologi</h4>
+                        <p>Dibangun dengan HTML5, CSS3, dan JavaScript (ES6+)</p>
+
+                        <h4>Kontak & Feedback</h4>
+                        <p>Kelompok N - Universitas Diponegoro Semarang</p>
+                        <p>Jika ada pertanyaan atau saran, silakan hubungi tim kami.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 MENU MAKAN HEMAT | Kelompok N - Universitas Diponegoro</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
